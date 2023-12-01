@@ -17,16 +17,20 @@ export default function TaskList() {
     }, Math.random() * 3000); // Simulate up to 3 seconds of delay.
   }, []);
 
+  const Task = ({ task }) => {
+    return (
+      <div className={`task ${task.completed ? 'completed' : ''}`}>
+        {task.title}
+        <span className="status">{task.completed ? 'Done' : 'Pending'}</span>
+      </div>
+    );
+  }
+
   return (
     <div className="task-list">
       <h2>Tasks</h2>
       {tasks && <ul>
-        {tasks.map(task => (
-          <li key={task.id} className={task.completed ? 'completed' : ''}>
-            {task.title}
-            <span className="status">{task.completed ? 'Done' : 'Pending'}</span>
-          </li>
-        ))}
+        {tasks.map((task, index) => (<li key={index}><Task task={task}/></li>))}
       </ul> || <marquee>Loading...</marquee>}
     </div>
   );

@@ -17,7 +17,7 @@
     padding: 0;
 }
 
-.task-list li {
+.task-list .task {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,16 +26,16 @@
     transition: background-color 0.3s;
 }
 
-.task-list li:last-child {
+.task-list li:last-child .task {
     border-bottom: none;
 }
 
-.task-list li.completed {
+.task-list .task.completed {
     color: #888;
     text-decoration: line-through;
 }
 
-.task-list .status {
+.task-list .task .status {
     font-size: 0.8rem;
     color: #fff;
     background: #5fba7d;
@@ -44,6 +44,6 @@
     text-transform: uppercase;
 }
 
-.task-list li.completed .status {
+.task-list .task.completed .status {
     background: #999;
 }
