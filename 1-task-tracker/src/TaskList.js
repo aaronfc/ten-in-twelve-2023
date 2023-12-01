@@ -1,10 +1,12 @@
-import React, {useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import './TaskList.css'; // Make sure to import the CSS file
 
 
 export default function TaskList() {
-  const [tasks, setTasks] = React.useState(null);
+  const [tasks, setTasks] = useState(null);
+  const [newTaskTitle, setNewTaskTitle] = useState('');
 
+  // Load tasks initially.
   useEffect(() => {
     const storedTasks = localStorage.getItem('tasks');
     if (storedTasks) {
@@ -18,11 +20,41 @@ export default function TaskList() {
     }
   }, []);
 
+  // Save changes on localStorage.
   useEffect(() => {
     if (tasks) {
       localStorage.setItem('tasks', JSON.stringify(tasks));
     }
   }, [tasks]);
+
+  // Handler to add a new task.
+  const addNewTask = () => {
+    // Ignore empty tasks.
+    if (newTaskTitle.trim() === '') return;
+
+    // Add the new task to the list.
+    const newTask = {
+      id: tasks.length + 1, // TODO Reimplement these IDs.
+      title: newTaskTitle,
+      completed: false,
+    };
+    setTasks([...tasks, newTask]);
+
+    // Reset the input field after adding the task.
+    setNewTaskTitle('');
+  };
+
+  // Handler to handle the input change.
+  const handleInputChange = (event) => {
+    setNewTaskTitle(event.target.value);
+  };
+
+  // Handler to handle pressing the Enter key in the input.
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      addNewTask();
+    }
+  };
 
   const toggle = (id) => {
     setTasks(tasks.map(task => {
@@ -48,6 +80,16 @@ export default function TaskList() {
       {tasks && <ul>
         {tasks.map((task, index) => (<li key={index}><Task task={task}/></li>))}
       </ul> || <marquee>Loading...</marquee>}
+      <div className="task-input">
+        <input
+          type="text"
+          value={newTaskTitle}
+          onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
+          placeholder="Enter new task"
+        />
+        <button onClick={addNewTask}>Add Task</button>
+      </div>
     </div>
   );
 }
