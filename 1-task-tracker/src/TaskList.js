@@ -6,16 +6,23 @@ export default function TaskList() {
   const [tasks, setTasks] = React.useState(null);
 
   useEffect(() => {
-    // TODO Fetch tasks from the API.
-    setTimeout(() => {
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    } else {
       setTasks([
-        { id: 1, title: 'Task 1', completed: false },
-        { id: 2, title: 'Task 2', completed: true },
-        { id: 3, title: 'Task 3', completed: false },
-        // You can add more tasks here...
+        { id: 1, title: 'Open Task Tracker', completed: true },
+        { id: 2, title: 'Play around', completed: false },
+        { id: 3, title: 'Enjoy', completed: false },
       ]);
-    }, Math.random() * 3000); // Simulate up to 3 seconds of delay.
+    }
   }, []);
+
+  useEffect(() => {
+    if (tasks) {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+  }, [tasks]);
 
   const toggle = (id) => {
     setTasks(tasks.map(task => {
