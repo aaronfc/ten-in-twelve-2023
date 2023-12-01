@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react';
 import './TaskList.css'; // Make sure to import the CSS file
 
-
 export default function TaskList() {
   const [tasks, setTasks] = useState(null);
   const [newTaskTitle, setNewTaskTitle] = useState('');
@@ -76,7 +75,6 @@ export default function TaskList() {
 
   return (
     <div className="task-list">
-      <h2>Tasks</h2>
       {tasks && <ul>
         {tasks.map((task, index) => (<li key={index}><Task task={task}/></li>))}
       </ul> || <marquee>Loading...</marquee>}
