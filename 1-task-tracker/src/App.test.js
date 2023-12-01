@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders app root element', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+  // TODO We should better use screen methods and avoid direct DOM access.
+  const linkElement = document.querySelector('.App');
   expect(linkElement).toBeInTheDocument();
 });
