@@ -17,9 +17,18 @@ export default function TaskList() {
     }, Math.random() * 3000); // Simulate up to 3 seconds of delay.
   }, []);
 
+  const toggle = (id) => {
+    setTasks(tasks.map(task => {
+      if (task.id === id) {
+        task.completed = !task.completed;
+      }
+      return task;
+    }));
+  }
+
   const Task = ({ task }) => {
     return (
-      <div className={`task ${task.completed ? 'completed' : ''}`}>
+      <div className={`task ${task.completed ? 'completed' : ''}`} onClick={() => toggle(task.id)}>
         {task.title}
         <span className="status">{task.completed ? 'Done' : 'Pending'}</span>
       </div>
