@@ -4,7 +4,7 @@ Simple web app for tracking daily tasks with features like adding, editing, and 
 
 ## TODO
 - [x] View all existing tasks.
-- [ ] Add new task.
+- [X] Add new task.
 - [x] Mark task as done.
 - [ ] Delete task.
 - [ ] Edit task.
